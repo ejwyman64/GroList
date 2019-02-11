@@ -10,6 +10,11 @@ namespace GroList
     {
         static void Main(string[] args)
         {
+            Console.Write("Hello! Please enter a category: ");
+            string inputCategory = Console.ReadLine();
+
+            Console.WriteLine(inputCategory);
+            Console.Read();
         }
     }
 }
