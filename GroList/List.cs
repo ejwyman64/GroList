@@ -30,4 +30,5 @@ namespace GroList
         HealthBeauty,
         Other
     }
+
 }
