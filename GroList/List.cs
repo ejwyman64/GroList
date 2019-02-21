@@ -6,29 +6,11 @@ using System.Threading.Tasks;
 
 namespace GroList
 {
-    public class List
+    class List
     {
-        public DateTime Date { get; set; }
-        public Category Category { get; set; }
+        internal static void NewList()
+        {
+            Console.WriteLine("New List");
+        }
     }
-
-    public enum Category
-    {
-        Produce,
-        Dairy,
-        Bakery,
-        Meat,
-        FrozenFood,
-        CannedFood,
-        Snacks,
-        GrainsCereal,
-        BakingCondiments,
-        Beverages,
-        PetSupplies,
-        PaperPlastic,
-        CleaningSupplies,
-        HealthBeauty,
-        Other
-    }
-
 }
