@@ -19,6 +19,9 @@ namespace GroList
 
         static void DisplayMenu()
         {
+
+            Console.WriteLine("_________________________________________________________");
+
             for (int i = 0; i < _options.Length; i++)
             {
                Console.WriteLine($"{i + 1}){_options[i]}");
@@ -39,7 +42,7 @@ namespace GroList
         internal static void DisplayGreeting()
         {
             Console.WriteLine("Hello, and welcome to GroList! Select a menu option below.");
-            Console.WriteLine("~~~~~~~~~~~~~~~~~~~");
+            Console.WriteLine("_________________________________________________________");
 
         }
 
