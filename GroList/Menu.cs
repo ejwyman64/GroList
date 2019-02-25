@@ -8,7 +8,7 @@ namespace GroList
 {
     class Menu
     {
-        internal static string[] _options = new string[]
+        static string[] _options = new string[]
             {
                 "Make a new list: ",
                 "Search for a saved list: ",
@@ -17,45 +17,22 @@ namespace GroList
                 "To exit the program: "
             };
 
-        internal static void DisplayOptions()
+        static void DisplayMenu()
         {
             for (int i = 0; i < _options.Length; i++)
             {
-                Console.WriteLine($"{_options[i]}{i + 1}");
+               Console.WriteLine($"{i + 1}){_options[i]}");
             }
+
         }
 
-        internal static string MenuInput(string message)
+        internal static string PromptMessage(string message)
         {
             Console.Write(message);
-            string userInput = Console.ReadLine();
+            String userInput = Console.ReadLine();
             Console.WriteLine();
 
-            return userInput.Trim();
-        }
-
-        internal static int Prompt()
-        {
-            bool valid = false;
-            int parsedOption = 0;
-            string option = string.Empty;
-
-            DisplayOptions();
-            do
-            {
-                option = MenuInput($"Please select an option (1-{_options.Length}): ");
-                bool canParse = int.TryParse(option, out parsedOption);
-                valid = canParse && parsedOption > 0 && parsedOption <= 5;
-
-                if (!valid)
-                {
-                    Console.WriteLine("'" + option + "' is not a valid option. Please provide a number 1-3");
-                }
-
-            }
-            while (!valid);
-
-            return parsedOption;
+            return userInput.Trim(); 
         }
 
 
@@ -65,6 +42,33 @@ namespace GroList
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~");
 
         }
+
+        internal static int Prompt()
+        {
+            bool validate = false;
+            int parsedUserInput = 0;
+            string input = string.Empty;
+
+            DisplayMenu();
+
+            do
+            {
+                input = PromptMessage($"Please select an option (1-{_options.Length}): ");
+                bool canParse = int.TryParse(input, out parsedUserInput);
+                validate = canParse && parsedUserInput > 0 && parsedUserInput <= 5;
+
+                if (!validate)
+                {
+                    Console.WriteLine("'" + input + "' is not a valid option. Please provide a number 1-5");
+                }
+            }
+            while (!validate);
+
+
+            return parsedUserInput;
+        }
+
+
 
     }
 }

@@ -16,7 +16,7 @@ namespace GroList
         {
             string[] Cats = (string[])Enum.GetNames(typeof(Category));
 
-            for (int i = 0; i < Cats.Length;)
+            for (int i = 0; i < Cats.Length; i++)
             {
                 Console.WriteLine(Cats[i]);
             }

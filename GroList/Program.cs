@@ -14,7 +14,7 @@ namespace GroList
             Menu.DisplayGreeting();
 
             int option = 0;
-            while ((option = Menu.DisplayOptions()) != 5)
+            while ((option = Menu.Prompt()) != 5)
             {
                 switch (option)
                 {
