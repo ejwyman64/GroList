@@ -20,7 +20,7 @@ namespace GroList
         static void DisplayMenu()
         {
 
-            Console.WriteLine("_________________________________________________________");
+            Console.WriteLine("_____________________________________________________________");
 
             for (int i = 0; i < _options.Length; i++)
             {
@@ -30,7 +30,7 @@ namespace GroList
         }
 
         internal static string PromptMessage(string message)
-        {
+        { 
             Console.Write(message);
             String userInput = Console.ReadLine();
             Console.WriteLine();
@@ -42,7 +42,7 @@ namespace GroList
         internal static void DisplayGreeting()
         {
             Console.WriteLine("Hello, and welcome to GroList! Select a menu option below.");
-            Console.WriteLine("_________________________________________________________");
+            Console.WriteLine("_____________________________________________________________");
 
         }
 
