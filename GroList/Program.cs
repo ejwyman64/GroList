@@ -27,10 +27,6 @@
                 }
             }
 
-
-
-
-
             //Main menu needs to be selectable to print out other options.
             //Categories option should print out a list of categories. 
             //New list should start the user on creating a new list.
