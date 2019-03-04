@@ -19,10 +19,5 @@ namespace GroList
             sr.Close();
         }
 
-
-        internal static void SavedSearch()
-        {
-            Console.WriteLine("Soon you will be able to save lists and retrieve them in this application! So cool!");
-        }
     }
 }

@@ -29,7 +29,7 @@ namespace GroList
         CannedFood,
         Snacks,
         GrainsCereal,
-        BakingCondiments,
+        PantryCondiments,
         Beverages,
         PetSupplies,
         PaperPlastic,

@@ -16,7 +16,7 @@
                         List.NewList();
                         break;
                     case 2:
-                        Other.SavedSearch();
+                        Search.SavedSearch();
                         break;
                     case 3:
                         Categories.ViewCategories();

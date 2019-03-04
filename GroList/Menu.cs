@@ -29,6 +29,9 @@ namespace GroList
 
         }
 
+        //gernerates a random number for ID
+       // Guid myGuid = Guid.NewGuid();
+
         internal static string PromptMessage(string message)
         { 
             Console.Write(message);

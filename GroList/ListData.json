@@ -1,0 +1,172 @@
+[
+    {
+        "name": "List One",
+        "date": "02/23/2019",
+            "produce": [],
+            "dairy": [],
+            "bakery": [],
+            "meat": [],
+            "frozenFood": [],
+            "cannedFood": [],
+            "snacks": [],
+            "grainsCereal": [],
+            "pantryCondiments": [],
+            "beverages": [],
+            "petSupplies": [],
+            "paperPlastic": [],
+            "cleaningSupplies": [],
+            "healthBeauty": [],
+            "other": []
+        
+    },
+    {
+        "name": "List Two",
+        "date": "02/24/2019",
+            "produce": [
+                "apples",
+                "bananas",
+                "potatoes",
+                "onion"
+            ],
+            "dairy": [
+                "milk",
+                "yogurt"
+            ],
+            "bakery": [
+                "whole wheat bread",
+                "tortillas",
+                "bagels"
+            ],
+            "meat": [
+                "chicken tenders",
+                "pork roast",
+                "steak tips",
+                "sweet italian sausage"
+            ],
+            "frozenFood": [
+                "peas",
+                "fish sticks"
+            ],
+            "cannedFood": [
+                "black beans",
+                "hominy",
+                "diced tomato and chilies"
+            ],
+            "snacks": [
+                "potato chips",
+                "crackers",
+                "popcorn"
+            ],
+            "grainsCereal": [
+                "honey nut o's",
+                "bran flakes",
+                "rolled oats"
+            ],
+            "pantryCondiments": [
+                "mayonaise",
+                "mustard",
+                "flour",
+                "sugar"
+            ],
+            "beverages": [
+                "coconut water",
+                "seltzer water"
+            ],
+            "petSupplies": [
+                "dog food"
+            ],
+            "paperPlastic": [
+                "dixi cups",
+                "napkins",
+                "toilet paper"
+            ],
+            "cleaningSupplies": [
+                "multi-purpose spray",
+                "bleach"
+            ],
+            "healthBeauty": [
+                "shampoo",
+                "conditioner",
+                "vitamins"
+            ],
+            "other": [
+                "notebook",
+                "flip flops"
+            ]
+        
+    },
+    {
+        "name": "List Three",
+        "date": "02/25/2019",
+            "produce": [
+                "avacados",
+                "bananas",
+                "carrots",
+                "cauliflower"
+            ],
+            "dairy": [
+                "milk",
+                "eggs",
+                "butter"
+            ],
+            "bakery": [
+                "wheat bread",
+                "crumpets"
+            ],
+            "meat": [
+                "chicken thighs",
+                "beef roast",
+                "ground beef"
+            ],
+            "frozenFood": [
+                "broccoli",
+                "pizza"
+            ],
+            "cannedFood": [
+                "refried beans",
+                "garbanzo beans",
+                "corn"
+            ],
+            "snacks": [
+                "tortilla chips",
+                "cheese puffs",
+                "pretzles"
+            ],
+            "grainsCereal": [
+                "corn flakes",
+                "instant oats"
+            ],
+            "pantryCondiments": [
+                "katsup",
+                "ranch",
+                "corn starch",
+                "honey"
+            ],
+            "beverages": [
+                "coke",
+                "red wine"
+            ],
+            "petSupplies": [
+                "cat food",
+                "litter"
+            ],
+            "paperPlastic": [
+                "paper towels",
+                "trash bags"
+            ],
+            "cleaningSupplies": [
+                "floor cleaner",
+                "sponges"
+            ],
+            "healthBeauty": [
+                "moisturizer",
+                "body wash",
+                "melatonin"
+            ],
+            "other": [
+                "sunglasses",
+                "magazine"
+            ]
+        
+    }
+]
