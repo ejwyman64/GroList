@@ -5,15 +5,13 @@
         static void Main(string[] args)
         {
 
-            Menu.DisplayGreeting();
-
             int option = 0;
-            while ((option = Menu.Prompt()) != 5)
+            while ((option = Menu.Prompt()) != Menu.Options.Length)
             {
                 switch (option)
                 {
                     case 1:
-                        List.NewList();
+                        ListMenu.NewListMenu();
                         break;
                     case 2:
                         Search.SavedSearch();

@@ -52,8 +52,9 @@
   <ItemGroup>
     <Compile Include="Categories.cs" />
     <Compile Include="EmailSearchedList.cs" />
-    <Compile Include="List.cs" />
+    <Compile Include="ListMenu.cs" />
     <Compile Include="Menu.cs" />
+    <Compile Include="NewList.cs" />
     <Compile Include="Other.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

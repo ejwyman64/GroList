@@ -9,7 +9,7 @@ namespace GroList
         internal static void AboutGroList()
         {
             string line;
-            StreamReader sr = new StreamReader("C:/Users/ejpin/source/repos/GroList/GroList/About.txt");
+            StreamReader sr = new StreamReader("../About.txt");
             line = sr.ReadLine();
             while (line != null)
             {
@@ -18,6 +18,18 @@ namespace GroList
             }
             sr.Close();
         }
+
+
+
+        internal static string PromptMessage(string message)
+        {
+            Console.Write(message);
+            String userInput = Console.ReadLine();
+            Console.WriteLine();
+
+            return userInput.Trim();
+        }
+
 
     }
 }

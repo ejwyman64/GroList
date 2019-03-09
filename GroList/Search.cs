@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
-using System.Linq;
-using System.Globalization;
-using Newtonsoft.Json.Converters;
 
 namespace GroList
 {
@@ -76,25 +73,25 @@ namespace GroList
             return data;
         }
 
-        static string[] _options = new string[]
+        internal static string[] Options =
         {
                 "To search for a list: ",
                 "To exit the program: "
         };
 
-        static void DisplayMenu()
+        public static void DisplayMenu()
         {
 
             Console.WriteLine("_____________________________________________________________");
 
-            for (int i = 0; i < _options.Length; i++)
+            for (int i = 0; i < Options.Length; i++)
             {
-                Console.WriteLine($"{i + 1}){_options[i]}");
+                Console.WriteLine($"{i + 1}){Options[i]}");
             }
 
         }
 
-        internal static int SearchPrompt()
+        internal static int Prompt()
         {
             bool validate = false;
             int parsedUserInput = 0;
@@ -104,13 +101,13 @@ namespace GroList
 
             do
             {
-                input = Menu.PromptMessage($"Please select an option (1-{_options.Length}): ");
+                input = Other.PromptMessage($"Please select an option (1-{Options.Length}): ");
                 bool canParse = int.TryParse(input, out parsedUserInput);
-                validate = canParse && parsedUserInput > 0 && parsedUserInput <= 2;
+                validate = canParse && parsedUserInput > 0 && parsedUserInput <= Options.Length;
 
                 if (!validate)
                 {
-                    Console.WriteLine("'" + input + "' is not a valid option. Please provide a number 1-5");
+                    Console.WriteLine("'" + input + $"' is not a valid option. Please provide a number 1-{Options.Length}");
                 }
             }
             while (!validate);
@@ -119,12 +116,14 @@ namespace GroList
             return parsedUserInput;
         }
 
+
         //needs to keep running until user wants to go back to menu.
         internal static void SavedSearch()
         {
+            Console.Clear();
 
             int option = 0;
-            while ((option = SearchPrompt()) != 2)
+            while ((option = Prompt()) != 2)
             {
                 switch (option)
                 {
@@ -156,6 +155,8 @@ namespace GroList
                 ListData item = listSearch[i];
                 if (searchQuery == item.Name.ToUpper() || searchQuery == item.Date)
                 {
+
+                    //Prints out formatted list.
                     Console.WriteLine("_____________________________________________________________");
                     Console.WriteLine(item.Name);
                     Console.WriteLine(item.Date);
@@ -208,23 +209,28 @@ namespace GroList
                 }
             }
 
+            //Prompt to ask user if they would like to send list to printer or email.
             Console.WriteLine("Would you like to email this list to yourself or print it out?");
             Console.Write("Type P to print, type E to email, or type both to do both: ");
             string printResponse = Console.ReadLine();
 
             if (printResponse == "E")
             {
+                //sends list to email of user.
                 EmailSearchedList.Email();
             }
             else if (printResponse == "P")
             {
+                //sends list to local printer.
                 EmailSearchedList.Print();
             }
             else if (printResponse == "EP" || printResponse == "PE")
             {
+                //sends list to both email and local printer.
                 EmailSearchedList.Print();
                 EmailSearchedList.Email();
             }
+            else { Console.WriteLine("Please enter a valid response."); }
 
         }
 

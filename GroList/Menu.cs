@@ -8,7 +8,7 @@ namespace GroList
 {
     class Menu
     {
-        static string[] _options = new string[]
+        internal static string[] Options =
             {
                 "Make a new list: ",
                 "Search for a saved list: ",
@@ -17,37 +17,26 @@ namespace GroList
                 "To exit the program: "
             };
 
-        static void DisplayMenu()
-        {
-
-            Console.WriteLine("_____________________________________________________________");
-
-            for (int i = 0; i < _options.Length; i++)
-            {
-               Console.WriteLine($"{i + 1}){_options[i]}");
-            }
-
-        }
-
-        //gernerates a random number for ID
-       // Guid myGuid = Guid.NewGuid();
-
-        internal static string PromptMessage(string message)
-        { 
-            Console.Write(message);
-            String userInput = Console.ReadLine();
-            Console.WriteLine();
-
-            return userInput.Trim(); 
-        }
-
-
         internal static void DisplayGreeting()
         {
             Console.WriteLine("Hello, and welcome to GroList! Select a menu option below.");
             Console.WriteLine("_____________________________________________________________");
 
         }
+
+        public static void DisplayMenu()
+        {
+            Console.Clear();
+            DisplayGreeting();
+            Console.WriteLine("_____________________________________________________________");
+
+            for (int i = 0; i < Options.Length; i++)
+            {
+                Console.WriteLine($"{i + 1}){Options[i]}");
+            }
+
+        }
+
 
         internal static int Prompt()
         {
@@ -59,13 +48,13 @@ namespace GroList
 
             do
             {
-                input = PromptMessage($"Please select an option (1-{_options.Length}): ");
+                input = Other.PromptMessage($"Please select an option (1-{Options.Length}): ");
                 bool canParse = int.TryParse(input, out parsedUserInput);
-                validate = canParse && parsedUserInput > 0 && parsedUserInput <= 5;
+                validate = canParse && parsedUserInput > 0 && parsedUserInput <= Options.Length;
 
                 if (!validate)
                 {
-                    Console.WriteLine("'" + input + "' is not a valid option. Please provide a number 1-5");
+                    Console.WriteLine("'" + input + $"' is not a valid option. Please provide a number 1-{Options.Length}");
                 }
             }
             while (!validate);
@@ -73,7 +62,6 @@ namespace GroList
 
             return parsedUserInput;
         }
-
 
 
     }
