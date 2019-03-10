@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 
 namespace GroList
 {
@@ -10,9 +12,10 @@ namespace GroList
 
         internal static void ViewCategories()
         {
-            string[] Cats = (string[])Enum.GetNames(typeof(Category));
 
-            for (int i = 0; i < Cats.Length; i++)
+            List<string> Cats = new List<string>();
+
+            for (int i = 0; i < Cats.ToArray().Length; i++)
             {
                 Console.WriteLine(Cats[i]);
             }

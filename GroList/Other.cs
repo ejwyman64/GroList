@@ -8,8 +8,17 @@ namespace GroList
 
         internal static void AboutGroList()
         {
+            Console.Clear();
+            Menu.DisplayGreeting();
+
+            string currentDirectory = Directory.GetCurrentDirectory();
+            DirectoryInfo directory = new DirectoryInfo(currentDirectory);
+            var fileName = Path.Combine(directory.FullName, "About.txt");
+
+            Console.WriteLine(fileName);
+
             string line;
-            StreamReader sr = new StreamReader("../About.txt");
+            StreamReader sr = new StreamReader(fileName);
             line = sr.ReadLine();
             while (line != null)
             {
