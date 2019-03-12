@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 
+
 namespace GroList
 {
     class Other
@@ -8,24 +9,33 @@ namespace GroList
 
         internal static void AboutGroList()
         {
-            Console.Clear();
-            Menu.DisplayGreeting();
-
-            string currentDirectory = Directory.GetCurrentDirectory();
-            DirectoryInfo directory = new DirectoryInfo(currentDirectory);
-            var fileName = Path.Combine(directory.FullName, "About.txt");
-
-            Console.WriteLine(fileName);
-
-            string line;
-            StreamReader sr = new StreamReader(fileName);
-            line = sr.ReadLine();
-            while (line != null)
+            bool validator = false;
+            do
             {
-                Console.WriteLine(line);
+                Console.Clear();
+                Menu.DisplayGreeting();
+
+                var fileName = "..\\..\\About.txt";
+
+                string line;
+                StreamReader sr = new StreamReader(fileName);
                 line = sr.ReadLine();
-            }
-            sr.Close();
+                while (line != null)
+                {
+                    Console.WriteLine(line);
+                    line = sr.ReadLine();
+                }
+                sr.Close();
+
+                Console.Write("Type '1' and then hit ENTER to return to main menu: ");
+                string menuReturn = Console.ReadLine();
+
+                if (menuReturn == "1")
+                {
+                    validator = true;
+                }
+
+            } while (!validator);
         }
 
 

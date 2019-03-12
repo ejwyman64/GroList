@@ -17,9 +17,6 @@
                         Search.SavedSearch();
                         break;
                     case 3:
-                        Categories.ViewCategories();
-                        break;
-                    case 4:
                         Other.AboutGroList();
                         break;
                 }

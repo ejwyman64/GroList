@@ -12,14 +12,13 @@ namespace GroList
             {
                 "Make a new list: ",
                 "Search for a saved list: ",
-                "View categories: ",
                 "Learn about GroList: ",
                 "To exit the program: "
             };
 
         internal static void DisplayGreeting()
         {
-            Console.WriteLine("Hello, and welcome to GroList! Select a menu option below.");
+            Console.WriteLine("Hello, and welcome to GroList!");
             Console.WriteLine("_____________________________________________________________");
 
         }
