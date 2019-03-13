@@ -6,22 +6,9 @@ namespace GroList
     {
         internal static string[] Options =
         {
-            "Produce",
-            "Dairy",
-            "Bakery",
-            "Meat",
-            "FrozenFood",
-            "CannedFood",
-            "Snacks",
-            "GrainsCereal",
-            "PantryCondiments",
-            "Beverages",
-            "PetSupplies",
-            "PaperPlastic",
-            "CleaningSupplies",
-            "HealthBeauty",
-            "Other",
-            "Exit List"
+            "View Categories",
+            "Start New List",
+            "Exit"
         };
 
         public static void DisplayMenu()
@@ -74,72 +61,20 @@ namespace GroList
 
             int option = 0;
 
+
             while ((option = Prompt()) != Options.Length)
             {
 
                 switch (option)
                 {
                     case 1:
-                        Value = "Produce";
-                        NewList.AddItems();
+                        Categories.GetCategories();
                         break;
                     case 2:
-                        Value = "Dairy";
-                        NewList.AddItems();
-                        break;
-                    case 3:
-                        Value = "Bakery";
-                        NewList.AddItems();
-                        break;
-                    case 4:
-                        Value = "Meat";
-                        NewList.AddItems();
-                        break;
-                    case 5:
-                        Value = "Frozen food";
-                        NewList.AddItems();
-                        break;
-                    case 6:
-                        Value = "Canned food";
-                        NewList.AddItems();
-                        break;
-                    case 7:
-                        Value = "Snacks";
-                        NewList.AddItems();
-                        break;
-                    case 8:
-                        Value = "Grains and cereal";
-                        NewList.AddItems();
-                        break;
-                    case 9:
-                        Value = "Pantry and condiments";
-                        NewList.AddItems();
-                        break;
-                    case 10:
-                        Value = "Beverages";
-                        NewList.AddItems();
-                        break;
-                    case 11:
-                        Value = "Pet supplies";
-                        NewList.AddItems();
-                        break;
-                    case 12:
-                        Value = "Paper or plastic";
-                        NewList.AddItems();
-                        break;
-                    case 13:
-                        Value = "cleaning supplies";
-                        NewList.AddItems();
-                        break;
-                    case 14:
-                        Value = "Health and beauty";
-                        NewList.AddItems();
-                        break;
-                    case 15:
-                        Value = "Other";
-                        NewList.AddItems();
+                        NewList.NewListMaker();
                         break;
                 }
+
             }
 
 

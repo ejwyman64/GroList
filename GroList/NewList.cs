@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections;
 using System.IO;
 using Newtonsoft.Json;
-using System;
 
 namespace GroList
 {
     class NewList
     {
+
+
         internal static void SerializeNewList(List<ListData> listDatas, string fileName)
         {
             var serializer = new JsonSerializer();
@@ -17,36 +20,77 @@ namespace GroList
             }
         }
 
-        internal static void AddItems()
+
+        internal static void NewListMaker()
         {
-            Console.WriteLine("Please type 'done' when finished adding items.");
-            List<string> NewItems = new List<string>();
-            var done = false;
+            bool validator = false;
             do
             {
-                Console.Write("Type an item: ");
-                var item = Console.ReadLine().Trim();
-                NewItems.Add(item);
+                Console.Clear();
+                Console.WriteLine();
 
-                done = NewItems.Contains("done");
+                foreach (string cat in Categories.cats)
+                {
 
-                NewItems.Remove("done");
-                
+                    Console.WriteLine("============== " + cat + " ==============");
+                    Console.WriteLine("Hit ENTER key when done adding items.");
+                    bool validator2 = false;
+                    do
+                    {
+                        Console.Write("Add an item: ");
+                        var itemInput = Console.ReadLine();
 
-            } while (!done);
+                        if(itemInput == "")
+                        {
+                            validator2 = true;
+                        }
 
-            Console.WriteLine("New items:");
-            for (var i = 0; i < NewItems.ToArray().Length; i++)
-            {
-                Console.WriteLine(NewItems[i]);
-            }
+                    } while (!validator2);
+                } break;
 
-
-            string currentDirectory = Directory.GetCurrentDirectory();
-            DirectoryInfo directory = new DirectoryInfo(currentDirectory);
-            var fileName = Path.Combine(directory.FullName, "ListData.json");
-
-            //SerializeNewList( ListMenu.listDatas, fileName);
+            } while (!validator);
         }
+
+
+        //need to refactor this page. 
+
+        //Need an object to store the user input in.
+        //Need to make sure the user input is stored in the right categories.
+        //Need to save the object to the JSON file.  
+
+        //internal static void AddItems()
+        //{
+        //    Console.WriteLine("Please type 'done' when finished adding items.");
+
+        //    List<string> NewItems = new List<string>();
+        //    var done = false;
+        //    do
+        //    {
+        //        Console.Write("Type an item: ");
+        //        var item = Console.ReadLine().Trim();
+        //        NewItems.Add(item);
+
+        //        done = NewItems.Contains("done");
+
+        //        NewItems.Remove("done");
+
+
+
+
+        //    } while (!done);
+
+        //    Console.WriteLine("New items:");
+        //    for (var i = 0; i < NewItems.ToArray().Length; i++)
+        //    {
+        //        Console.WriteLine(NewItems[i]);
+        //    }
+
+
+        //    string currentDirectory = Directory.GetCurrentDirectory();
+        //    DirectoryInfo directory = new DirectoryInfo(currentDirectory);
+        //    var fileName = Path.Combine(directory.FullName, "ListData.json");
+
+        //    //SerializeNewList( ListMenu.listDatas, fileName);
+        //}
     }
 }
