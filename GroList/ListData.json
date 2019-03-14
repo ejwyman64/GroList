@@ -20,10 +20,11 @@
         
     },
     {
+	//need to refactor JSON and run through validator.
         "name": "List Two",
         "date": "02/24/2019",
+		"items" : [{"apple":"produce", "milk" : "dairy"}]
             "produce": [
-                "apples",
                 "bananas",
                 "potatoes",
                 "onion"

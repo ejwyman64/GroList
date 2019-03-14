@@ -8,7 +8,7 @@ namespace GroList
 {
     class Menu
     {
-        internal static string[] Options =
+        internal static string[] MainMenuOptions =
             {
                 "Make a new list: ",
                 "Search for a saved list: ",
@@ -29,9 +29,9 @@ namespace GroList
             DisplayGreeting();
             Console.WriteLine("_____________________________________________________________");
 
-            for (int i = 0; i < Options.Length; i++)
+            for (int i = 0; i < MainMenuOptions.Length; i++)
             {
-                Console.WriteLine($"{i + 1}){Options[i]}");
+                Console.WriteLine($"{i + 1}){MainMenuOptions[i]}");
             }
 
         }
@@ -47,13 +47,13 @@ namespace GroList
 
             do
             {
-                input = Other.PromptMessage($"Please select an option (1-{Options.Length}): ");
+                input = Program.PromptMessage($"Please select an option (1-{MainMenuOptions.Length}): ");
                 bool canParse = int.TryParse(input, out parsedUserInput);
-                validate = canParse && parsedUserInput > 0 && parsedUserInput <= Options.Length;
+                validate = canParse && parsedUserInput > 0 && parsedUserInput <= MainMenuOptions.Length;
 
                 if (!validate)
                 {
-                    Console.WriteLine("'" + input + $"' is not a valid option. Please provide a number 1-{Options.Length}");
+                    Console.WriteLine("'" + input + $"' is not a valid option. Please provide a number 1-{MainMenuOptions.Length}");
                 }
             }
             while (!validate);

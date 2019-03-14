@@ -26,8 +26,6 @@ namespace GroList
                 "Other"
                 };
 
-        //The code below was very helpful for me to learn debugging and I'm a little bit emotinally attached to the solution 
-        //so I will just leave it in as commented code. Obviosly I would only do this on personal projects :D
 
         internal static void GetCategories()
         {

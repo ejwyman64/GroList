@@ -9,28 +9,45 @@ namespace GroList
     class NewList
     {
 
+        internal static List<string> CategoryItems = new List<string>();
 
-        internal static void SerializeNewList(List<ListData> listDatas, string fileName)
+
+
+        internal static void SerializeNewList(List<string> CategoryItems, string fileName)
         {
+
             var serializer = new JsonSerializer();
             using (var writer = new StreamWriter(fileName))
             using (var jsonWriter = new JsonTextWriter(writer))
             {
-                serializer.Serialize(jsonWriter, listDatas);
+                serializer.Serialize(jsonWriter, CategoryItems);
             }
         }
 
 
         internal static void NewListMaker()
         {
+
             bool validator = false;
             do
             {
                 Console.Clear();
                 Console.WriteLine();
 
+                var newList = new ShoppingData();
+
                 foreach (string cat in Categories.cats)
                 {
+                    //*************************************************
+
+                    Console. Write('Enter List Name');
+                    ShoppingData.Name = Console.readline();
+
+                    myList.date = DateTime.Now();
+
+                    myList.Items.AdD();
+                    //*****************************************
+                    CategoryItems.Add(cat);
 
                     Console.WriteLine("============== " + cat + " ==============");
                     Console.WriteLine("Hit ENTER key when done adding items.");
@@ -39,6 +56,7 @@ namespace GroList
                     {
                         Console.Write("Add an item: ");
                         var itemInput = Console.ReadLine();
+                        CategoryItems.Add(itemInput.Trim());
 
                         if(itemInput == "")
                         {
@@ -46,6 +64,13 @@ namespace GroList
                         }
 
                     } while (!validator2);
+
+                    myShoppingLists.Add(myList);
+
+                    Serialixe();
+
+                ///    SerializeNewList(CategoryItems, fileName);
+
                 } break;
 
             } while (!validator);
