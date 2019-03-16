@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
+
 namespace GroList
 {
-    public class ShoppingData
+    public class ShoppingData : IEnumerable
     {
         [JsonProperty("name", Required = Required.Always)]
         public string Name { get; set; }
@@ -12,15 +14,87 @@ namespace GroList
         [JsonProperty("date", Required = Required.Always)]
         public string Date { get; set; }
 
-        public List<ShoppingItem> items { get; set; }
+        [JsonProperty("items", Required = Required.Always)]
+        public List<ShoppingItem> Items { get; set; }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return (IEnumerator)GetEnumerator();
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
 
         //this will be called in search and will print out one list.
-        public void PrintShoppingData()
+
+        internal static void SearchResults()
         {
-            foreach (var i in items)
+            var shoppingList = new ShoppingData();
+
+            //Prompt for user to search.
+            Console.Write("Search by the name of the list or the date (mm/dd/yyyy) the list was created: ");
+            string searchQuery = Console.ReadLine();
+            searchQuery = searchQuery.ToUpper();
+
+            bool validator = false;
+
+            do
             {
-                i.PrintItem();
-            }
+
+                //Prints searched items out to console.
+                foreach (var i in shoppingList)
+                {
+                    if (searchQuery == shoppingList.Name.ToUpper() || searchQuery == shoppingList.Date)
+                    {
+
+                        //Prints out formatted list.
+                        Console.WriteLine("_____________________________________________________________");
+                        Console.WriteLine(shoppingList.Name);
+                        Console.WriteLine(shoppingList.Date);
+                        ShoppingItem.PrintItem();
+
+                        //Prompt to ask user if they would like to send list to printer or email.
+                        Console.WriteLine("_________________________________________________________________");
+                        Console.WriteLine("Would you like to email this list to yourself or print it out?");
+                        Console.Write("Type P to print, type E to email, or type both to do both: ");
+                        string printResponse = Console.ReadLine();
+
+                        if (printResponse == "E")
+                        {
+                            //sends list to email of user.
+                            Email();
+                        }
+                        else if (printResponse == "P")
+                        {
+                            //sends list to local printer.
+                            Print();
+                        }
+                        else if (printResponse == "EP" || printResponse == "PE")
+                        {
+                            //sends list to both email and local printer.
+                            Print();
+                            Email();
+                        }
+                        else { Console.WriteLine("Please enter a valid response."); }
+
+                        validator = false;
+                    }
+                    else
+                    {
+                        validator = true;
+                        Console.WriteLine("List not found. Please try again");
+
+                    }
+
+
+
+
+                }
+            } while (!validator);
+
+            Console.WriteLine("List not found. Please try again");
         }
 
         internal static void Email()
@@ -32,50 +106,6 @@ namespace GroList
         {
             Console.WriteLine("Your List has been sent to your local printer.");
         }
-        /*
-        [JsonProperty("produce", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> Produce { get; set; }
 
-        [JsonProperty("dairy", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> Dairy { get; set; }
-
-        [JsonProperty("bakery", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> Bakery { get; set; }
-
-        [JsonProperty("meat", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> Meat { get; set; }
-
-        [JsonProperty("frozenFood", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> FrozenFood { get; set; }
-
-        [JsonProperty("cannedFood", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> CannedFood { get; set; }
-
-        [JsonProperty("snacks", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> Snacks { get; set; }
-
-        [JsonProperty("grainsCereal", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> GrainsCereal { get; set; }
-
-        [JsonProperty("pantryCondiments", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> PantryCondiments { get; set; }
-
-        [JsonProperty("beverages", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> Beverages { get; set; }
-
-        [JsonProperty("petSupplies", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> PetSupplies { get; set; }
-
-        [JsonProperty("paperPlastic", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> PaperPlastic { get; set; }
-
-        [JsonProperty("cleaningSupplies", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> CleaningSupplies { get; set; }
-
-        [JsonProperty("healthBeauty", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> HealthBeauty { get; set; }
-
-        [JsonProperty("other", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> Other { get; set; }*/
     }
 }

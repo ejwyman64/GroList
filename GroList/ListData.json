@@ -1,172 +1,34 @@
-[
-    {
+[    
+{
         "name": "List One",
-        "date": "02/23/2019",
-            "produce": [],
-            "dairy": [],
-            "bakery": [],
-            "meat": [],
-            "frozenFood": [],
-            "cannedFood": [],
-            "snacks": [],
-            "grainsCereal": [],
-            "pantryCondiments": [],
-            "beverages": [],
-            "petSupplies": [],
-            "paperPlastic": [],
-            "cleaningSupplies": [],
-            "healthBeauty": [],
-            "other": []
-        
-    },
-    {
-	//need to refactor JSON and run through validator.
-        "name": "List Two",
         "date": "02/24/2019",
-		"items" : [{"apple":"produce", "milk" : "dairy"}]
-            "produce": [
-                "bananas",
-                "potatoes",
-                "onion"
-            ],
-            "dairy": [
-                "milk",
-                "yogurt"
-            ],
-            "bakery": [
-                "whole wheat bread",
-                "tortillas",
-                "bagels"
-            ],
-            "meat": [
-                "chicken tenders",
-                "pork roast",
-                "steak tips",
-                "sweet italian sausage"
-            ],
-            "frozenFood": [
-                "peas",
-                "fish sticks"
-            ],
-            "cannedFood": [
-                "black beans",
-                "hominy",
-                "diced tomato and chilies"
-            ],
-            "snacks": [
-                "potato chips",
-                "crackers",
-                "popcorn"
-            ],
-            "grainsCereal": [
-                "honey nut o's",
-                "bran flakes",
-                "rolled oats"
-            ],
-            "pantryCondiments": [
-                "mayonaise",
-                "mustard",
-                "flour",
-                "sugar"
-            ],
-            "beverages": [
-                "coconut water",
-                "seltzer water"
-            ],
-            "petSupplies": [
-                "dog food"
-            ],
-            "paperPlastic": [
-                "dixi cups",
-                "napkins",
-                "toilet paper"
-            ],
-            "cleaningSupplies": [
-                "multi-purpose spray",
-                "bleach"
-            ],
-            "healthBeauty": [
-                "shampoo",
-                "conditioner",
-                "vitamins"
-            ],
-            "other": [
-                "notebook",
-                "flip flops"
+            "items": [
+                {"itemName":"apples",
+                "category":"produce"},
+                {"itemName":"milk",
+                "category":"dairy"},
+                {"itemName":"whole wheat bread",
+                "category":"bakery"},
+                {"itemName":"chicken tenders",
+                "category":"meat"},
+                {"itemName":"peas",
+                "category":"frozenFood"}
             ]
         
-    },
-    {
-        "name": "List Three",
-        "date": "02/25/2019",
-            "produce": [
-                "avacados",
-                "bananas",
-                "carrots",
-                "cauliflower"
-            ],
-            "dairy": [
-                "milk",
-                "eggs",
-                "butter"
-            ],
-            "bakery": [
-                "wheat bread",
-                "crumpets"
-            ],
-            "meat": [
-                "chicken thighs",
-                "beef roast",
-                "ground beef"
-            ],
-            "frozenFood": [
-                "broccoli",
-                "pizza"
-            ],
-            "cannedFood": [
-                "refried beans",
-                "garbanzo beans",
-                "corn"
-            ],
-            "snacks": [
-                "tortilla chips",
-                "cheese puffs",
-                "pretzles"
-            ],
-            "grainsCereal": [
-                "corn flakes",
-                "instant oats"
-            ],
-            "pantryCondiments": [
-                "katsup",
-                "ranch",
-                "corn starch",
-                "honey"
-            ],
-            "beverages": [
-                "coke",
-                "red wine"
-            ],
-            "petSupplies": [
-                "cat food",
-                "litter"
-            ],
-            "paperPlastic": [
-                "paper towels",
-                "trash bags"
-            ],
-            "cleaningSupplies": [
-                "floor cleaner",
-                "sponges"
-            ],
-            "healthBeauty": [
-                "moisturizer",
-                "body wash",
-                "melatonin"
-            ],
-            "other": [
-                "sunglasses",
-                "magazine"
+    },{
+        "name": "List Two",
+        "date": "02/26/2019",
+            "items": [
+                {"itemName":"orange",
+                "category":"produce"},
+                {"itemName":"yogurt",
+                "category":"dairy"},
+                {"itemName":"buns",
+                "category":"bakery"},
+                {"itemName":"pork roast",
+                "category":"meat"},
+                {"itemName":"pizza",
+                "category":"frozenFood"}
             ]
         
     }

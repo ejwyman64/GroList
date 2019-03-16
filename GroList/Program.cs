@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
+
 
 namespace GroList
 {
@@ -16,16 +18,19 @@ namespace GroList
             //need to debug.
             var myShoppingLists = DeserializeData(fileName);
 
+            Console.WriteLine(myShoppingLists);            
+
             int option = 0;
-            while ((option = Menu.Prompt()) != Menu.MainMenuOptions.Length)
+
+            while ((option = Prompt(MainMenuOptions)) != MainMenuOptions.Length)
             {
                 switch (option)
                 {
                     case 1:
-                        ListMenu.NewListMenu();
+                        NewListMenu();
                         break;
                     case 2:
-                        Search.SavedSearch();
+                        SavedSearch();
                         break;
                     case 3:
                         AboutGroList();
@@ -33,6 +38,79 @@ namespace GroList
                 }
             }
         }
+
+        //==================================================================
+        //------------Other Menus --------------------
+
+        internal static void NewListMenu()
+        {
+            Console.Clear();
+
+            DisplayGreeting();
+            Console.WriteLine("******************** Create A New List ********************");
+
+            string Value = string.Empty;
+
+            int option = 0;
+
+
+            while ((option = Prompt(NewListMenuOptions)) != NewListMenuOptions.Length)
+            {
+
+                switch (option)
+                {
+                    case 1:
+                        OldCategories.GetCategories();
+                        break;
+                    case 2:
+                        NewList.NewListMaker();
+                        break;
+                }
+
+            }
+
+
+        }
+
+        internal static void SavedSearch()
+        {
+            Console.Clear();
+
+            int option = 0;
+            while ((option = Prompt(SearchMenuOptions)) != SearchMenuOptions.Length)
+            {
+                switch (option)
+                {
+                    case 1:
+                        //Categories
+                        //   SearchResults();
+                        break;
+                }
+            }
+
+        }
+
+        //Menu option arrays:
+        internal static string[] MainMenuOptions =
+    {
+                "Make a new list: ",
+                "Search for a saved list: ",
+                "Learn about GroList: ",
+                "To exit the program: "
+            };
+
+        internal static string[] NewListMenuOptions =
+{
+            "View Categories",
+            "Start New List",
+            "Exit"
+        };
+
+        internal static string[] SearchMenuOptions =
+{
+                "To search for a list: ",
+                "To exit the program: "
+        };
 
         //Need to move menu methods and all "UI" stuff to this file.
 
@@ -54,7 +132,7 @@ namespace GroList
             do
             {
                 Console.Clear();
-                Menu.DisplayGreeting();
+                DisplayGreeting();
 
                 var fileName = "..\\..\\About.txt";
 
@@ -88,16 +166,61 @@ namespace GroList
             return userInput.Trim();
         }
 
-        Search(myShoppingList)
+        internal static void DisplayGreeting()
         {
-            foreach (var list in myShoppingList)
+            Console.WriteLine("Hello, and welcome to GroList!");
+            Console.WriteLine("_____________________________________________________________");
+
+        }
+
+        public static void DisplayMenu(string[] array)
+        {
+            Console.Clear();
+            DisplayGreeting();
+            Console.WriteLine("_____________________________________________________________");
+
+            for (int i = 0; i < array.Length; i++)
             {
-                if (list.name = neame)
+                Console.WriteLine($"{i + 1}){array.ElementAt(i)}");
+            }
+
+        }
+
+        internal static int Prompt(string[] array)
+        {
+            bool validate = false;
+            int parsedUserInput = 0;
+            string input = string.Empty;
+
+            DisplayMenu(array);
+
+            do
+            {
+                input = Program.PromptMessage($"Please select an option (1-{array.Length}): ");
+                bool canParse = int.TryParse(input, out parsedUserInput);
+                validate = canParse && parsedUserInput > 0 && parsedUserInput <= array.Length;
+
+                if (!validate)
                 {
-                    list.PrintShoppingData();
+                    Console.WriteLine("'" + input + $"' is not a valid option. Please provide a number 1-{array.Length}");
                 }
             }
+            while (!validate);
+
+
+            return parsedUserInput;
         }
+
+        //internal static void Search(myShoppingLists)
+        //{
+        //    foreach (var list in myShoppingLists)
+        //    {
+        //        if (list.name = name)
+        //        {
+        //            ShoppingData.PrintShoppingData();
+        //        }
+        //    }
+        //}
 
     }
 }

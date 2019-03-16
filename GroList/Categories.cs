@@ -5,7 +5,7 @@ using System.Collections;
 
 namespace GroList
 {
-    class Categories
+    class OldCategories
     {
         internal static List<string> cats = new List<string>
                 {
@@ -34,7 +34,7 @@ namespace GroList
             do
             {
                 Console.Clear();
-                Menu.DisplayGreeting();
+                Program.DisplayGreeting();
 
                 foreach (string cat in cats)
                 {
@@ -48,7 +48,7 @@ namespace GroList
                 {
                     validator = true;
                     Console.Clear();
-                    Menu.DisplayGreeting(); 
+                    Program.DisplayGreeting(); 
                 }
 
             } while (!validator);

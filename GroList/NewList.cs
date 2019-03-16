@@ -36,16 +36,16 @@ namespace GroList
 
                 var newList = new ShoppingData();
 
-                foreach (string cat in Categories.cats)
+                foreach (string cat in OldCategories.cats)
                 {
                     //*************************************************
 
-                    Console. Write('Enter List Name');
-                    ShoppingData.Name = Console.readline();
+                    //Console. Write('Enter List Name');
+                    //ShoppingData.Name = Console.readline();
 
-                    myList.date = DateTime.Now();
+                    //myList.date = DateTime.Now();
 
-                    myList.Items.AdD();
+                    //myList.Items.AdD();
                     //*****************************************
                     CategoryItems.Add(cat);
 
@@ -65,9 +65,9 @@ namespace GroList
 
                     } while (!validator2);
 
-                    myShoppingLists.Add(myList);
+                    //myShoppingLists.Add(myList);
 
-                    Serialixe();
+                    //Serialixe();
 
                 ///    SerializeNewList(CategoryItems, fileName);
 
