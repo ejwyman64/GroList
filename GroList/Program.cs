@@ -7,18 +7,30 @@ using Newtonsoft.Json;
 
 namespace GroList
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+
+        internal static string GetFileName()
         {
             string currentDirectory = Directory.GetCurrentDirectory();
             DirectoryInfo directory = new DirectoryInfo(currentDirectory);
             var fileName = Path.Combine(directory.FullName, "ListData.json");
+            return fileName;
+        }
 
-            //need to debug.
-            var myShoppingLists = DeserializeData(fileName);
+        internal static void Main(string[] args)
+        {
+            //string currentDirectory = Directory.GetCurrentDirectory();
+            //DirectoryInfo directory = new DirectoryInfo(currentDirectory);
+            //var fileName = Path.Combine(directory.FullName, "ListData.json");
 
-            Console.WriteLine(myShoppingLists);            
+            List<ShoppingData> myShoppingLists = DeserializeData(GetFileName());
+
+            foreach (var shoppingList in myShoppingLists)
+            {
+                Console.WriteLine(string.Format("{0} {1}", shoppingList.Name, shoppingList.Date));
+
+            }
 
             int option = 0;
 
@@ -30,7 +42,7 @@ namespace GroList
                         NewListMenu();
                         break;
                     case 2:
-                        SavedSearch();
+                        ShoppingData.SearchResults(myShoppingLists);
                         break;
                     case 3:
                         AboutGroList();
@@ -39,7 +51,7 @@ namespace GroList
             }
         }
 
-        //==================================================================
+        //============================================
         //------------Other Menus --------------------
 
         internal static void NewListMenu()

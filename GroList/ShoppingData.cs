@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Newtonsoft.Json;
 
 
 namespace GroList
 {
-    public class ShoppingData : IEnumerable
+    public class ShoppingData
     {
         [JsonProperty("name", Required = Required.Always)]
         public string Name { get; set; }
@@ -17,21 +17,60 @@ namespace GroList
         [JsonProperty("items", Required = Required.Always)]
         public List<ShoppingItem> Items { get; set; }
 
-        IEnumerator IEnumerable.GetEnumerator()
+
+        internal static void SerializeNewList(List<ShoppingData> myShoppingLists, string fileName)
         {
-            return (IEnumerator)GetEnumerator();
+
+            var serializer = new JsonSerializer();
+            using (var writer = new StreamWriter(fileName))
+            using (var jsonWriter = new JsonTextWriter(writer))
+            {
+                serializer.Serialize(jsonWriter, myShoppingLists);
+            }
         }
 
-        public IEnumerator GetEnumerator()
+        internal static void NewListMaker(List<ShoppingData> myShoppingLists)
         {
-            throw new NotImplementedException();
+
+            bool validator = false;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine();
+
+
+                foreach (var newList in myShoppingLists)
+                {
+                    //*************************************************
+                    //Get name of list and date.
+                    Console.Write("Enter List Name: ");
+                    newList.Name = Console.ReadLine();
+
+                    newList.Date = DateTime.Now.ToString("MM/dd/yyyy");
+
+                    //*****************************************
+                    myShoppingLists.Add(newList);
+                    Console.WriteLine(myShoppingLists);
+
+                    ShoppingItem.NewItemMaker(newList, Category)
+
+
+                    //myShoppingLists.Add(myList);
+
+                    //SerializeNewList(myShoppingLists, Program.GetFileName());
+
+                    ///    SerializeNewList(CategoryItems, fileName);
+
+                }
+                break;
+
+            } while (!validator);
         }
 
         //this will be called in search and will print out one list.
 
-        internal static void SearchResults()
+        internal static void SearchResults(List<ShoppingData> myShoppingLists)
         {
-            var shoppingList = new ShoppingData();
 
             //Prompt for user to search.
             Console.Write("Search by the name of the list or the date (mm/dd/yyyy) the list was created: ");
@@ -42,25 +81,21 @@ namespace GroList
 
             do
             {
-
                 //Prints searched items out to console.
-                foreach (var i in shoppingList)
+                foreach (var i in myShoppingLists)
                 {
-                    if (searchQuery == shoppingList.Name.ToUpper() || searchQuery == shoppingList.Date)
+                    if (searchQuery == i.Name.ToUpper() || searchQuery == i.Date)
                     {
-
                         //Prints out formatted list.
                         Console.WriteLine("_____________________________________________________________");
-                        Console.WriteLine(shoppingList.Name);
-                        Console.WriteLine(shoppingList.Date);
-                        ShoppingItem.PrintItem();
-
+                        Console.WriteLine(i.Name);
+                        Console.WriteLine(i.Date);
+                        ShoppingItem.PrintItem(i.Items);
                         //Prompt to ask user if they would like to send list to printer or email.
                         Console.WriteLine("_________________________________________________________________");
                         Console.WriteLine("Would you like to email this list to yourself or print it out?");
                         Console.Write("Type P to print, type E to email, or type both to do both: ");
                         string printResponse = Console.ReadLine();
-
                         if (printResponse == "E")
                         {
                             //sends list to email of user.
@@ -78,19 +113,13 @@ namespace GroList
                             Email();
                         }
                         else { Console.WriteLine("Please enter a valid response."); }
-
                         validator = false;
                     }
                     else
                     {
                         validator = true;
                         Console.WriteLine("List not found. Please try again");
-
                     }
-
-
-
-
                 }
             } while (!validator);
 
@@ -105,6 +134,7 @@ namespace GroList
         internal static void Print()
         {
             Console.WriteLine("Your List has been sent to your local printer.");
+
         }
 
     }
