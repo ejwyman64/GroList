@@ -29,7 +29,7 @@ namespace GroList
             }
         }
 
-        internal static void NewListMaker(List<ShoppingData> myShoppingLists)
+        internal static void NewListMaker(List<ShoppingData> myNewShoppingList)
         {
 
             bool validator = false;
@@ -39,7 +39,7 @@ namespace GroList
                 Console.WriteLine();
 
 
-                foreach (var newList in myShoppingLists)
+                foreach (var newList in myNewShoppingList)
                 {
                     //*************************************************
                     //Get name of list and date.
@@ -49,27 +49,24 @@ namespace GroList
                     newList.Date = DateTime.Now.ToString("MM/dd/yyyy");
 
                     //*****************************************
-                    myShoppingLists.Add(newList);
-                    Console.WriteLine(myShoppingLists);
+                    myNewShoppingList.Add(newList);
+                    Console.WriteLine(myNewShoppingList);
 
-                    ShoppingItem.NewItemMaker(newList, Category)
+                    //This method doesn't work yet.
+                    ShoppingItem.NewItemMaker(newList.Items /*Category.???*/);
 
 
-                    //myShoppingLists.Add(myList);
+                    myNewShoppingList.Add(newList);
 
-                    //SerializeNewList(myShoppingLists, Program.GetFileName());
-
-                    ///    SerializeNewList(CategoryItems, fileName);
-
+                    SerializeNewList(myNewShoppingList, Program.GetFileName());
                 }
                 break;
-
             } while (!validator);
         }
 
         //this will be called in search and will print out one list.
 
-        internal static void SearchResults(List<ShoppingData> myShoppingLists)
+        internal static void SearchResults(List<ShoppingData> searchResultsList)
         {
 
             //Prompt for user to search.
@@ -82,7 +79,7 @@ namespace GroList
             do
             {
                 //Prints searched items out to console.
-                foreach (var i in myShoppingLists)
+                foreach (var i in searchResultsList)
                 {
                     if (searchQuery == i.Name.ToUpper() || searchQuery == i.Date)
                     {

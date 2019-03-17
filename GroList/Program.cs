@@ -18,13 +18,15 @@ namespace GroList
             return fileName;
         }
 
+        internal static List<ShoppingData> myShoppingLists = DeserializeData(GetFileName());
+
+
         internal static void Main(string[] args)
         {
             //string currentDirectory = Directory.GetCurrentDirectory();
             //DirectoryInfo directory = new DirectoryInfo(currentDirectory);
             //var fileName = Path.Combine(directory.FullName, "ListData.json");
 
-            List<ShoppingData> myShoppingLists = DeserializeData(GetFileName());
 
             foreach (var shoppingList in myShoppingLists)
             {
@@ -42,7 +44,7 @@ namespace GroList
                         NewListMenu();
                         break;
                     case 2:
-                        ShoppingData.SearchResults(myShoppingLists);
+                        ShoppingData.SearchResults(searchResultsList: myShoppingLists);
                         break;
                     case 3:
                         AboutGroList();
@@ -75,7 +77,7 @@ namespace GroList
                         OldCategories.GetCategories();
                         break;
                     case 2:
-                        NewList.NewListMaker();
+                        ShoppingData.NewListMaker(myNewShoppingList: myShoppingLists);
                         break;
                 }
 
