@@ -15,52 +15,40 @@ namespace GroList
 
         internal static void PrintItem(List<ShoppingItem> myShoppingItem)
         {
-                foreach (var data in myShoppingItem)
-                {
-                    Console.WriteLine(data.ItemName);
-                    Console.WriteLine(data.Category);
-                }
+            foreach (var data in myShoppingItem)
+            {
+                Console.WriteLine(data.ItemName);
+                Console.WriteLine(data.Category);
+            }
         }
 
-        //internal static string GetCategory()
-        //{
-        //    Console.Write("Enter a category (produce, dairy, bakery, meat, frozenFood): ");
-        //    string nextCategory = Console.ReadLine();
 
-        //    string[] category = Enum.GetNames(typeof(Category));
-
-        //    for (int cat = 0; cat > category.Length; cat++)
-        //    {
-        //        if (nextCategory == category[cat])
-        //        {
-        //            nextCategory = category[cat];
-        //        }
-        //    }
-
-        //    return nextCategory;
-        //}
-
-        internal static void NewItemMaker(List<ShoppingItem> myNewShoppingItem/*, Category category*/)
+        internal List<ShoppingItem> NewItemMaker()
         {
-            foreach (var i in myNewShoppingItem)
+            List<ShoppingItem> newItem = new List<ShoppingItem>();
+            foreach (var cat in Enum.GetNames(typeof(Category)))
             {
-                //Console.WriteLine("============== " + category + " ==============");
-                //Console.WriteLine("Hit ENTER key when done adding items.");
-                bool validator2 = false;
+                Console.WriteLine("********** " + cat + " ***********");
+                Console.WriteLine("Just hit ENTER key when done.");
+
+                bool validator = false;
                 do
                 {
                     Console.Write("Add an item: ");
-                    i.ItemName = Console.ReadLine();
-                    //i.Category = category; ///////////////// I would like to make it so that I can use the ENUMS to set the category automatically.
-                    Console.Write("Enter category (produce, dairy, bakery, meat, frozenFood): ");
-                    i.Category = Console.ReadLine();
 
-                    myNewShoppingItem.Add(i);
-                    /////////////////////////////// Needs to be able to break out of this loop. Right now there
-                    /////////////////////////////// is no way to get out of this loop...
+                    //Don't know how to add ItemName or Category.
+                    //It just gets a red squiggle.
+                    newItem.ItemName = Console.ReadLine();
+                    newItem.Category = cat;
 
-                } while (!validator2);
+                    if (ItemName == "")
+                    {
+                        validator = true;
+                    }
+
+                } while (!validator) ;
             }
+            return newItem;
         }
     }
 

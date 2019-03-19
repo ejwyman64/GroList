@@ -23,16 +23,6 @@ namespace GroList
 
         internal static void Main(string[] args)
         {
-            //string currentDirectory = Directory.GetCurrentDirectory();
-            //DirectoryInfo directory = new DirectoryInfo(currentDirectory);
-            //var fileName = Path.Combine(directory.FullName, "ListData.json");
-
-
-            foreach (var shoppingList in myShoppingLists)
-            {
-                Console.WriteLine(string.Format("{0} {1}", shoppingList.Name, shoppingList.Date));
-
-            }
 
             int option = 0;
 
@@ -77,7 +67,7 @@ namespace GroList
                         OldCategories.GetCategories();
                         break;
                     case 2:
-                        ShoppingData.NewListMaker(myNewShoppingList: myShoppingLists);
+                        ShoppingData.NewListMaker();
                         break;
                 }
 
@@ -125,6 +115,7 @@ namespace GroList
                 "To search for a list: ",
                 "To exit the program: "
         };
+
 
         //Need to move menu methods and all "UI" stuff to this file.
 

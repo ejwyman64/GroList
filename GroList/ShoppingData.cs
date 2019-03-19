@@ -29,40 +29,66 @@ namespace GroList
             }
         }
 
-        internal static void NewListMaker(List<ShoppingData> myNewShoppingList)
-        {
 
+
+        internal static void NewListMaker()
+        {
+            ShoppingData newShoppingData = new ShoppingData();
             bool validator = false;
             do
             {
                 Console.Clear();
                 Console.WriteLine();
 
+                //*************************************************
+                //Get name of list and date.
+                Console.Write("Enter List Name: ");
+                newShoppingData.Name = Console.ReadLine().Trim();
 
-                foreach (var newList in myNewShoppingList)
+                newShoppingData.Date = DateTime.Now.ToString("MM/dd/yyyy");
+                newShoppingData.Items = ShoppingItem.NewItemMaker();
+
+                //*****************************************
+                Console.WriteLine("_____________________________________________________________");
+                Console.WriteLine("Name: " + newShoppingData.Name);
+                Console.WriteLine("Date: " + newShoppingData.Date);
+                Console.WriteLine("Items: " + newShoppingData.Items);
+                
+                //Add name and date to myNewShoppingList
+                Program.myShoppingLists.Add(newShoppingData);
+                SerializeNewList(Program.myShoppingLists, Program.GetFileName());
+
+                Console.Write("Is your list complete? Yes/NO: ");
+                string completeAnswer = Console.ReadLine().Trim();
+                if (completeAnswer == "YES")
                 {
-                    //*************************************************
-                    //Get name of list and date.
-                    Console.Write("Enter List Name: ");
-                    newList.Name = Console.ReadLine();
-
-                    newList.Date = DateTime.Now.ToString("MM/dd/yyyy");
-
-                    //*****************************************
-                    myNewShoppingList.Add(newList);
-                    Console.WriteLine(myNewShoppingList);
-
-                    //This method doesn't work yet.
-                    ShoppingItem.NewItemMaker(newList.Items /*Category.???*/);
-
-
-                    myNewShoppingList.Add(newList);
-
-                    SerializeNewList(myNewShoppingList, Program.GetFileName());
+                    validator = true;
                 }
-                break;
+
             } while (!validator);
         }
+
+        //internal static int CategoryPrompt(int parsedUserInput)
+        //{
+        //    bool validate = false;
+        //    string input = string.Empty;
+
+        //    do
+        //    {
+        //        input = Program.PromptMessage("Please select an option (1-6): ");
+        //        bool canParse = int.TryParse(input, out parsedUserInput);
+        //        validate = canParse && parsedUserInput > 0 && parsedUserInput <= 6;
+
+        //        if (!validate)
+        //        {
+        //            Console.WriteLine("'" + input + $"' is not a valid option. Please provide a number 1-6");
+        //        }
+        //    }
+        //    while (!validate);
+
+
+        //    return parsedUserInput;
+        //}
 
         //this will be called in search and will print out one list.
 
