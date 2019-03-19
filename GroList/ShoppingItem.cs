@@ -29,8 +29,6 @@ namespace GroList
             foreach (var cat in Enum.GetNames(typeof(Category)))
             {
                 Console.WriteLine("********** " + cat + " ***********");
-                Console.WriteLine("Just hit ENTER key when done.");
-
                 bool validator = false;
                 do
                 {
@@ -44,7 +42,14 @@ namespace GroList
                     newItem.Category = cat;
                     items.Add(newItem);
 
-                    if (newItem.ItemName == "")
+                    ////This is very repetitive and not user friendly.
+                    ////May have to find a new way to exit this loop.
+                    Console.Write("Add another item to " + cat + "? Y/N: ");
+                    var addAnother = Console.ReadLine().ToUpper();
+                    if (addAnother == "Y")
+                    {
+                        validator = false;
+                    } else
                     {
                         validator = true;
                     }

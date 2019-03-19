@@ -29,7 +29,15 @@ namespace GroList
             }
         }
 
-
+        internal static void PrintShoppingData(List<ShoppingData> myShoppingData)
+        {
+            foreach (var data in myShoppingData)
+            {
+                Console.WriteLine(data.Name);
+                Console.WriteLine(data.Date);
+                ShoppingItem.PrintItem(data.Items);
+            }
+        }
 
         internal static void NewListMaker()
         {
@@ -48,13 +56,15 @@ namespace GroList
                 newShoppingData.Date = DateTime.Now.ToString("MM/dd/yyyy");
                 newShoppingData.Items = ShoppingItem.NewItemMaker();
                 Program.myShoppingLists.Add(newShoppingData);
+                List<ShoppingData> newList = new List<ShoppingData>
+                {
+                    newShoppingData
+                };
 
                 //*****************************************
                 Console.WriteLine("_____________________________________________________________");
-                Console.WriteLine("Name: " + newShoppingData.Name);
-                Console.WriteLine("Date: " + newShoppingData.Date);
-                Console.WriteLine("Items: " + newShoppingData.Items);
-                
+                PrintShoppingData(newList);
+
                 //Add name and date to myNewShoppingList
                 SerializeNewList(Program.myShoppingLists, Program.GetFileName());
 
