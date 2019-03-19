@@ -14,7 +14,7 @@ namespace GroList
         [JsonProperty("date", Required = Required.Always)]
         public string Date { get; set; }
 
-        [JsonProperty("items", Required = Required.Always)]
+        [JsonProperty("items")]
         public List<ShoppingItem> Items { get; set; }
 
 
@@ -38,15 +38,16 @@ namespace GroList
             do
             {
                 Console.Clear();
-                Console.WriteLine();
+                Program.DisplayGreeting();
 
                 //*************************************************
                 //Get name of list and date.
-                Console.Write("Enter List Name: ");
+                Console.Write("Enter new list name: ");
                 newShoppingData.Name = Console.ReadLine().Trim();
 
                 newShoppingData.Date = DateTime.Now.ToString("MM/dd/yyyy");
                 newShoppingData.Items = ShoppingItem.NewItemMaker();
+                Program.myShoppingLists.Add(newShoppingData);
 
                 //*****************************************
                 Console.WriteLine("_____________________________________________________________");
@@ -55,11 +56,10 @@ namespace GroList
                 Console.WriteLine("Items: " + newShoppingData.Items);
                 
                 //Add name and date to myNewShoppingList
-                Program.myShoppingLists.Add(newShoppingData);
                 SerializeNewList(Program.myShoppingLists, Program.GetFileName());
 
-                Console.Write("Is your list complete? Yes/NO: ");
-                string completeAnswer = Console.ReadLine().Trim();
+                Console.Write("Is your list complete? YES/NO: ");
+                string completeAnswer = Console.ReadLine().Trim().ToUpper();
                 if (completeAnswer == "YES")
                 {
                     validator = true;
@@ -67,30 +67,6 @@ namespace GroList
 
             } while (!validator);
         }
-
-        //internal static int CategoryPrompt(int parsedUserInput)
-        //{
-        //    bool validate = false;
-        //    string input = string.Empty;
-
-        //    do
-        //    {
-        //        input = Program.PromptMessage("Please select an option (1-6): ");
-        //        bool canParse = int.TryParse(input, out parsedUserInput);
-        //        validate = canParse && parsedUserInput > 0 && parsedUserInput <= 6;
-
-        //        if (!validate)
-        //        {
-        //            Console.WriteLine("'" + input + $"' is not a valid option. Please provide a number 1-6");
-        //        }
-        //    }
-        //    while (!validate);
-
-
-        //    return parsedUserInput;
-        //}
-
-        //this will be called in search and will print out one list.
 
         internal static void SearchResults(List<ShoppingData> searchResultsList)
         {

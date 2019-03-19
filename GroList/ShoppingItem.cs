@@ -23,9 +23,9 @@ namespace GroList
         }
 
 
-        internal List<ShoppingItem> NewItemMaker()
+        internal static List<ShoppingItem> NewItemMaker()
         {
-            List<ShoppingItem> newItem = new List<ShoppingItem>();
+            List < ShoppingItem> items = new List<ShoppingItem>();
             foreach (var cat in Enum.GetNames(typeof(Category)))
             {
                 Console.WriteLine("********** " + cat + " ***********");
@@ -34,21 +34,24 @@ namespace GroList
                 bool validator = false;
                 do
                 {
+                    var newItem = new ShoppingItem();
+
                     Console.Write("Add an item: ");
 
                     //Don't know how to add ItemName or Category.
                     //It just gets a red squiggle.
                     newItem.ItemName = Console.ReadLine();
                     newItem.Category = cat;
+                    items.Add(newItem);
 
-                    if (ItemName == "")
+                    if (newItem.ItemName == "")
                     {
                         validator = true;
                     }
 
                 } while (!validator) ;
             }
-            return newItem;
+            return items;
         }
     }
 
