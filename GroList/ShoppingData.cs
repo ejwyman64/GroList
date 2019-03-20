@@ -68,9 +68,9 @@ namespace GroList
                 //Add name and date to myNewShoppingList
                 SerializeNewList(Program.myShoppingLists, Program.GetFileName());
 
-                Console.Write("Is your list complete? YES/NO: ");
+                Console.Write("Please hit ENTER key to return to main menu");
                 string completeAnswer = Console.ReadLine().Trim().ToUpper();
-                if (completeAnswer == "YES")
+                if (completeAnswer == "")
                 {
                     validator = true;
                 }
@@ -80,13 +80,14 @@ namespace GroList
 
         internal static void SearchResults(List<ShoppingData> searchResultsList)
         {
+            bool validator = false;
+
 
             //Prompt for user to search.
             Console.Write("Search by the name of the list or the date (mm/dd/yyyy) the list was created: ");
             string searchQuery = Console.ReadLine();
             searchQuery = searchQuery.ToUpper();
 
-            bool validator = false;
 
             do
             {
@@ -100,39 +101,44 @@ namespace GroList
                         Console.WriteLine(i.Name);
                         Console.WriteLine(i.Date);
                         ShoppingItem.PrintItem(i.Items);
+                        Console.WriteLine("_____________________________________________________________");
+                        //--------------------------------------------------------------------------------
                         //Prompt to ask user if they would like to send list to printer or email.
-                        Console.WriteLine("_________________________________________________________________");
-                        Console.WriteLine("Would you like to email this list to yourself or print it out?");
-                        Console.Write("Type P to print, type E to email, or type both to do both: ");
-                        string printResponse = Console.ReadLine();
-                        if (printResponse == "E")
-                        {
-                            //sends list to email of user.
-                            Email();
-                        }
-                        else if (printResponse == "P")
-                        {
-                            //sends list to local printer.
-                            Print();
-                        }
-                        else if (printResponse == "EP" || printResponse == "PE")
-                        {
-                            //sends list to both email and local printer.
-                            Print();
-                            Email();
-                        }
-                        else { Console.WriteLine("Please enter a valid response."); }
-                        validator = false;
+                        //------------------------------------------------------------------------------
+                        //Console.WriteLine("Would you like to email this list to yourself or print it out?");
+                        //Console.Write("Type P to print, type E to email, or type both to do both: ");
+                        //string printResponse = Console.ReadLine();
+                        //if (printResponse == "E")
+                        //{
+                        //    //sends list to email of user.
+                        //    Email();
+                        //}
+                        //else if (printResponse == "P")
+                        //{
+                        //    //sends list to local printer.
+                        //    Print();
+                        //}
+                        //else if (printResponse == "EP" || printResponse == "PE")
+                        //{
+                        //    //sends list to both email and local printer.
+                        //    Print();
+                        //    Email();
+                        //}
+                        //else { Console.WriteLine("Please enter a valid response."); }
+                        //validator = false;
                     }
                     else
                     {
-                        validator = true;
-                        Console.WriteLine("List not found. Please try again");
+                        Console.Write("To try again hit the ENTER key: ");
+                        var x = Console.ReadKey().Key;
+                        if (x == ConsoleKey.Enter)
+                        {
+                            validator = true;
+                        }
+
                     }
                 }
             } while (!validator);
-
-            Console.WriteLine("List not found. Please try again");
         }
 
         internal static void Email()

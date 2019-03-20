@@ -17,8 +17,8 @@ namespace GroList
         {
             foreach (var data in myShoppingItem)
             {
-                Console.WriteLine(data.ItemName);
                 Console.WriteLine(data.Category);
+                Console.WriteLine(data.ItemName);
             }
         }
 
@@ -46,6 +46,7 @@ namespace GroList
                     ////May have to find a new way to exit this loop.
                     Console.Write("Add another item to " + cat + "? Y/N: ");
                     var addAnother = Console.ReadLine().ToUpper();
+
                     if (addAnother == "Y")
                     {
                         validator = false;
@@ -67,5 +68,6 @@ namespace GroList
         bakery,
         meat,
         frozenFood
+
     }
 }

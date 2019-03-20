@@ -34,7 +34,7 @@ namespace GroList
                         NewListMenu();
                         break;
                     case 2:
-                        ShoppingData.SearchResults(searchResultsList: myShoppingLists);
+                        SavedSearch();
                         break;
                     case 3:
                         AboutGroList();
@@ -64,7 +64,7 @@ namespace GroList
                 switch (option)
                 {
                     case 1:
-                        OldCategories.GetCategories();
+                        GetCategories();
                         break;
                     case 2:
                         ShoppingData.NewListMaker();
@@ -86,8 +86,7 @@ namespace GroList
                 switch (option)
                 {
                     case 1:
-                        //Categories
-                        //   SearchResults();
+                        ShoppingData.SearchResults(searchResultsList: myShoppingLists);
                         break;
                 }
             }
@@ -214,6 +213,32 @@ namespace GroList
 
 
             return parsedUserInput;
+        }
+
+        internal static void GetCategories()
+        {
+            bool validator = false;
+            do
+            {
+                Console.Clear();
+                DisplayGreeting();
+
+                foreach (var cat in Enum.GetNames(typeof(Category)))
+                {
+                    Console.WriteLine(cat);
+                    Console.WriteLine("-----------------------------------------");
+                }
+
+                Console.Write("Type '1' to return to main menu: ");
+                string menuReturn = Console.ReadLine();
+
+                if (menuReturn == "1")
+                {
+                    validator = true;
+                    Console.Clear();
+                    DisplayGreeting();
+                }
+            } while (!validator);
         }
 
         //internal static void Search(myShoppingLists)
