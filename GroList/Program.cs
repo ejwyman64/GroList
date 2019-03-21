@@ -46,6 +46,7 @@ namespace GroList
         //============================================
         //------------Other Menus --------------------
 
+        //Menu to make a new list and view categories.
         internal static void NewListMenu()
         {
             Console.Clear();
@@ -75,7 +76,48 @@ namespace GroList
 
 
         }
+        //Method to make a new list.
+        internal static void NewListMaker()
+        {
+            ShoppingData newShoppingData = new ShoppingData();
+            bool validator = false;
+            do
+            {
+                Console.Clear();
+                DisplayGreeting();
 
+                //*************************************************
+                //Get name of list and date.
+                Console.Write("Enter new list name: ");
+                newShoppingData.Name = Console.ReadLine().Trim();
+
+                newShoppingData.Date = DateTime.Now.ToString("MM/dd/yyyy");
+                newShoppingData.Items = ShoppingItem.NewItemMaker();
+                myShoppingLists.Add(newShoppingData);
+                List<ShoppingData> newList = new List<ShoppingData>
+                {
+                    newShoppingData
+                };
+
+                //*****************************************
+                Console.WriteLine("_____________________________________________________________");
+                ShoppingData.PrintShoppingData(newList);
+
+                //Add name and date to myNewShoppingList
+                ShoppingData.SerializeNewList(Program.myShoppingLists, Program.GetFileName());
+
+                Console.Write("Please hit ENTER key to return to main menu");
+                string completeAnswer = Console.ReadLine().Trim().ToUpper();
+                if (completeAnswer == "")
+                {
+                    validator = true;
+                }
+
+            } while (!validator);
+        }
+
+
+        //Menu for searching through the lists.
         internal static void SavedSearch()
         {
             Console.Clear();
@@ -86,12 +128,101 @@ namespace GroList
                 switch (option)
                 {
                     case 1:
-                        ShoppingData.SearchResults(searchResultsList: myShoppingLists);
+                        SearchResults(searchResultsList: myShoppingLists);
+                        break;
+                    case 2:
+                        ShoppingData.PrintShoppingData(myShoppingData: myShoppingLists);
                         break;
                 }
             }
 
         }
+        //Method for searching through the lists.
+        internal static void SearchResults(List<ShoppingData> searchResultsList)
+        {
+            bool validator = false;
+
+            do
+            {
+                //Prompt for user to search.
+                Console.Write("Search by the name of the list or the date (mm/dd/yyyy) the list was created: ");
+                string searchQuery = Console.ReadLine();
+                searchQuery = searchQuery.ToUpper();
+
+
+                bool notFound = false;
+                //Prints searched items out to console.
+                foreach (var i in searchResultsList)
+                {
+                    if (searchQuery == i.Name.ToUpper() || searchQuery == i.Date)
+                    {
+                        //Prints out formatted list.
+                        Console.WriteLine("_____________________________________________________________");
+                        Console.WriteLine(i.Name);
+                        Console.WriteLine(i.Date);
+                        ShoppingItem.PrintItem(i.Items);
+                        Console.WriteLine("_____________________________________________________________");
+                        //--------------------------------------------------------------------------------
+                        //Prompt to ask user if they would like to send list to printer or email.
+                        //------------------------------------------------------------------------------
+                        //Console.WriteLine("Would you like to email this list to yourself or print it out?");
+                        //Console.Write("Type P to print, type E to email, or type both to do both: ");
+                        //string printResponse = Console.ReadLine();
+                        //if (printResponse == "E")
+                        //{
+                        //    //sends list to email of user.
+                        //    Email();
+                        //}
+                        //else if (printResponse == "P")
+                        //{
+                        //    //sends list to local printer.
+                        //    Print();
+                        //}
+                        //else if (printResponse == "EP" || printResponse == "PE")
+                        //{
+                        //    //sends list to both email and local printer.
+                        //    Print();
+                        //    Email();
+                        //}
+                        //else { Console.WriteLine("Please enter a valid response."); }
+
+                        Console.WriteLine("Awesome! We found it!");
+                        notFound = false;
+                        break;
+
+                    }
+                    else
+                    {
+                        notFound = true;
+                    }
+
+                }
+                if (notFound == true)
+                {
+                    Console.WriteLine("Sorry! GroList couldn't find that list.");
+
+                }
+
+
+                Console.Write("Would you like to search for another list? Y/N: ");
+                var enterKey = Console.ReadKey();
+                switch (enterKey.Key)
+                {
+                    case ConsoleKey.Y:
+                        validator = false;
+                        Console.WriteLine("");
+                        break;
+                    case ConsoleKey.N:
+                        validator = true;
+                        Console.WriteLine("");
+
+                        break;
+                }
+
+            } while (!validator);
+        }
+
+
 
         //Menu option arrays:
         internal static string[] MainMenuOptions =
@@ -112,6 +243,7 @@ namespace GroList
         internal static string[] SearchMenuOptions =
 {
                 "To search for a list: ",
+                "To print out all saved lists to screen: ",
                 "To exit the program: "
         };
 
@@ -240,17 +372,6 @@ namespace GroList
                 }
             } while (!validator);
         }
-
-        //internal static void Search(myShoppingLists)
-        //{
-        //    foreach (var list in myShoppingLists)
-        //    {
-        //        if (list.name = name)
-        //        {
-        //            ShoppingData.PrintShoppingData();
-        //        }
-        //    }
-        //}
 
     }
 }

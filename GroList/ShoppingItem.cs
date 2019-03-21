@@ -17,8 +17,15 @@ namespace GroList
         {
             foreach (var data in myShoppingItem)
             {
-                Console.WriteLine(data.Category);
-                Console.WriteLine(data.ItemName);
+                if (data.ItemName != null)
+                {
+                    Console.WriteLine(data.Category);
+                    Console.WriteLine(data.ItemName);
+                } else
+                {
+                    Console.WriteLine("empty");
+                }
+
             }
         }
 
@@ -40,20 +47,22 @@ namespace GroList
                     //It just gets a red squiggle.
                     newItem.ItemName = Console.ReadLine();
                     newItem.Category = cat;
-                    items.Add(newItem);
-
-                    ////This is very repetitive and not user friendly.
-                    ////May have to find a new way to exit this loop.
-                    Console.Write("Add another item to " + cat + "? Y/N: ");
-                    var addAnother = Console.ReadLine().ToUpper();
-
-                    if (addAnother == "Y")
-                    {
-                        validator = false;
-                    } else
+                    if (string.IsNullOrEmpty(newItem.ItemName))
                     {
                         validator = true;
                     }
+                    else
+                    {
+                        validator = false;
+                        items.Add(newItem);
+                    }
+
+                    ////This is very repetitive and not user friendly.
+                    ////May have to find a new way to exit this loop.
+                    //Console.Write("Add another item to " + cat + "? Y/N: ");
+                    //var addAnother = Console.ReadLine().ToUpper();
+
+
 
                 } while (!validator) ;
             }

@@ -35,8 +35,13 @@ namespace GroList
             {
                 Console.WriteLine(data.Name);
                 Console.WriteLine(data.Date);
-                ShoppingItem.PrintItem(data.Items);
+                if(data.Items != null)
+                {
+                    ShoppingItem.PrintItem(data.Items);
+
+                }
             }
+            Console.Read();
         }
 
         internal static void NewListMaker()
@@ -75,69 +80,6 @@ namespace GroList
                     validator = true;
                 }
 
-            } while (!validator);
-        }
-
-        internal static void SearchResults(List<ShoppingData> searchResultsList)
-        {
-            bool validator = false;
-
-
-            //Prompt for user to search.
-            Console.Write("Search by the name of the list or the date (mm/dd/yyyy) the list was created: ");
-            string searchQuery = Console.ReadLine();
-            searchQuery = searchQuery.ToUpper();
-
-
-            do
-            {
-                //Prints searched items out to console.
-                foreach (var i in searchResultsList)
-                {
-                    if (searchQuery == i.Name.ToUpper() || searchQuery == i.Date)
-                    {
-                        //Prints out formatted list.
-                        Console.WriteLine("_____________________________________________________________");
-                        Console.WriteLine(i.Name);
-                        Console.WriteLine(i.Date);
-                        ShoppingItem.PrintItem(i.Items);
-                        Console.WriteLine("_____________________________________________________________");
-                        //--------------------------------------------------------------------------------
-                        //Prompt to ask user if they would like to send list to printer or email.
-                        //------------------------------------------------------------------------------
-                        //Console.WriteLine("Would you like to email this list to yourself or print it out?");
-                        //Console.Write("Type P to print, type E to email, or type both to do both: ");
-                        //string printResponse = Console.ReadLine();
-                        //if (printResponse == "E")
-                        //{
-                        //    //sends list to email of user.
-                        //    Email();
-                        //}
-                        //else if (printResponse == "P")
-                        //{
-                        //    //sends list to local printer.
-                        //    Print();
-                        //}
-                        //else if (printResponse == "EP" || printResponse == "PE")
-                        //{
-                        //    //sends list to both email and local printer.
-                        //    Print();
-                        //    Email();
-                        //}
-                        //else { Console.WriteLine("Please enter a valid response."); }
-                        //validator = false;
-                    }
-                    else
-                    {
-                        Console.Write("To try again hit the ENTER key: ");
-                        var x = Console.ReadKey().Key;
-                        if (x == ConsoleKey.Enter)
-                        {
-                            validator = true;
-                        }
-
-                    }
-                }
             } while (!validator);
         }
 
