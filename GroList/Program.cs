@@ -9,7 +9,7 @@ namespace GroList
 {
     internal class Program
     {
-
+        //----- Locates the JSON file for the deserialization and serialization.
         internal static string GetFileName()
         {
             string currentDirectory = Directory.GetCurrentDirectory();
@@ -18,9 +18,10 @@ namespace GroList
             return fileName;
         }
 
+        //----- Calls the deserialization method on the JSON file and saves it to a list.
         internal static List<ShoppingData> myShoppingLists = DeserializeData(GetFileName());
 
-
+        //----- Main Method! 
         internal static void Main(string[] args)
         {
 
@@ -44,7 +45,7 @@ namespace GroList
         }
 
         //============================================
-        //------------Other Menus --------------------
+        //------------ New List Maker ----------------
 
         //Menu to make a new list and view categories.
         internal static void NewListMenu()
@@ -68,7 +69,7 @@ namespace GroList
                         GetCategories();
                         break;
                     case 2:
-                        ShoppingData.NewListMaker();
+                        NewListMaker();
                         break;
                 }
 
@@ -76,11 +77,14 @@ namespace GroList
 
 
         }
+        //----- Really helpful variable that helped me exit out of the NewListMaker() method.
+        internal static ConsoleKeyInfo key = new ConsoleKeyInfo();
+
         //Method to make a new list.
         internal static void NewListMaker()
         {
-            ShoppingData newShoppingData = new ShoppingData();
             bool validator = false;
+            ShoppingData newShoppingData = new ShoppingData();
             do
             {
                 Console.Clear();
@@ -92,31 +96,62 @@ namespace GroList
                 newShoppingData.Name = Console.ReadLine().Trim();
 
                 newShoppingData.Date = DateTime.Now.ToString("MM/dd/yyyy");
-                newShoppingData.Items = ShoppingItem.NewItemMaker();
+                newShoppingData.Items = NewItemMaker();
                 myShoppingLists.Add(newShoppingData);
                 List<ShoppingData> newList = new List<ShoppingData>
                 {
                     newShoppingData
                 };
 
+                SerializeNewList(myShoppingLists, GetFileName());
+
                 //*****************************************
                 Console.WriteLine("_____________________________________________________________");
                 ShoppingData.PrintShoppingData(newList);
-
-                //Add name and date to myNewShoppingList
-                ShoppingData.SerializeNewList(Program.myShoppingLists, Program.GetFileName());
-
-                Console.Write("Please hit ENTER key to return to main menu");
-                string completeAnswer = Console.ReadLine().Trim().ToUpper();
-                if (completeAnswer == "")
+                if (key.Key == ConsoleKey.Enter)
                 {
                     validator = true;
                 }
 
+
             } while (!validator);
+        }
+        //Method to add items to the new list.
+        internal static List<ShoppingItem> NewItemMaker()
+        {
+            List<ShoppingItem> items = new List<ShoppingItem>();
+            foreach (var cat in Enum.GetNames(typeof(Category)))
+            {
+                Console.WriteLine("********** " + cat + " ***********");
+                bool validator = false;
+                do
+                {
+                    var newItem = new ShoppingItem();
+
+                    Console.Write("Add an item: ");
+
+                    newItem.ItemName = Console.ReadLine();
+                    newItem.Category = cat;
+                    if (string.IsNullOrEmpty(newItem.ItemName))
+                    {
+                        validator = true;
+                    }
+                    else
+                    {
+                        validator = false;
+                        items.Add(newItem);
+                    }
+
+
+
+                } while (!validator);
+            }
+            return items;
         }
 
 
+        //============================================
+        //------------ Search Methods ----------------
         //Menu for searching through the lists.
         internal static void SavedSearch()
         {
@@ -223,8 +258,8 @@ namespace GroList
         }
 
 
-
-        //Menu option arrays:
+        //============================================
+        //------------ Menu option arrays ------------
         internal static string[] MainMenuOptions =
     {
                 "Make a new list: ",
@@ -247,9 +282,7 @@ namespace GroList
                 "To exit the program: "
         };
 
-
-        //Need to move menu methods and all "UI" stuff to this file.
-
+        //----- Deserialize JSON file.
         internal static List<ShoppingData> DeserializeData(string fileName)
         {
             var data = new List<ShoppingData>();
@@ -261,7 +294,19 @@ namespace GroList
             }
             return data;
         }
+        //----- Serialize List to JSON file.
+        internal static void SerializeNewList(List<ShoppingData> myShoppingLists, string fileName)
+        {
 
+            var serializer = new JsonSerializer();
+            using (var writer = new StreamWriter(fileName))
+            using (var jsonWriter = new JsonTextWriter(writer))
+            {
+                serializer.Serialize(jsonWriter, myShoppingLists);
+            }
+        }
+
+        //----- Reading a text file to the console.
         internal static void AboutGroList()
         {
             bool validator = false;
@@ -282,10 +327,10 @@ namespace GroList
                 }
                 sr.Close();
 
-                Console.Write("Type '1' and then hit ENTER to return to main menu: ");
-                string menuReturn = Console.ReadLine();
+                Console.Write("Type ENTER to return to main menu: ");
+                key = Console.ReadKey();
 
-                if (menuReturn == "1")
+                if (key.Key == ConsoleKey.Enter)
                 {
                     validator = true;
                 }
@@ -293,6 +338,7 @@ namespace GroList
             } while (!validator);
         }
 
+        //----- Prints out the prompt message for the main menu.
         internal static string PromptMessage(string message)
         {
             Console.Write(message);
@@ -302,6 +348,7 @@ namespace GroList
             return userInput.Trim();
         }
 
+        //----- Greeting that always stays on top of the screen.
         internal static void DisplayGreeting()
         {
             Console.WriteLine("Hello, and welcome to GroList!");
@@ -309,6 +356,7 @@ namespace GroList
 
         }
 
+        //----- Prints menu options to the screen.
         public static void DisplayMenu(string[] array)
         {
             Console.Clear();
@@ -322,6 +370,7 @@ namespace GroList
 
         }
 
+        //----- Standard prompt method to cycle through the menu options.
         internal static int Prompt(string[] array)
         {
             bool validate = false;
@@ -347,11 +396,9 @@ namespace GroList
             return parsedUserInput;
         }
 
+        //----- Prints the categories in the Categoy Enum to the screen.
         internal static void GetCategories()
         {
-            bool validator = false;
-            do
-            {
                 Console.Clear();
                 DisplayGreeting();
 
@@ -361,17 +408,20 @@ namespace GroList
                     Console.WriteLine("-----------------------------------------");
                 }
 
-                Console.Write("Type '1' to return to main menu: ");
-                string menuReturn = Console.ReadLine();
-
-                if (menuReturn == "1")
-                {
-                    validator = true;
-                    Console.Clear();
-                    DisplayGreeting();
-                }
-            } while (!validator);
+                Console.Write("Hit ENTER to return to main menu: ");
+                Console.ReadKey();
         }
+
+        //internal static void Email()
+        //{
+        //    Console.WriteLine("Your list has been emailed.");
+        //}
+
+        //internal static void Print()
+        //{
+        //    Console.WriteLine("Your List has been sent to your local printer.");
+
+        //}
 
     }
 }
