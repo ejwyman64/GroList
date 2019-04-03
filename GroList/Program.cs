@@ -19,26 +19,27 @@ namespace GroList
         }
 
         //----- Calls the deserialization method on the JSON file and saves it to a list.
-        internal static List<ShoppingData> myShoppingLists = DeserializeData(GetFileName());
+        internal  List<ShoppingData> myShoppingLists = DeserializeData(GetFileName());
 
         //----- Main Method! 
         internal static void Main(string[] args)
         {
+            Program program = new Program();
 
             int option = 0;
 
-            while ((option = Prompt(MainMenuOptions)) != MainMenuOptions.Length)
+            while ((option = program.Prompt(program.MainMenuOptions)) != program.MainMenuOptions.Length)
             {
                 switch (option)
                 {
                     case 1:
-                        NewListMenu();
+                        program.NewListMenu();
                         break;
                     case 2:
-                        SavedSearch();
+                        program.SavedSearch();
                         break;
                     case 3:
-                        AboutGroList();
+                        program.AboutGroList();
                         break;
                 }
             }
@@ -48,7 +49,7 @@ namespace GroList
         //------------ New List Maker ----------------
 
         //Menu to make a new list and view categories.
-        internal static void NewListMenu()
+        internal void NewListMenu()
         {
             Console.Clear();
 
@@ -81,7 +82,7 @@ namespace GroList
         internal static ConsoleKeyInfo key = new ConsoleKeyInfo();
 
         //Method to make a new list.
-        internal static void NewListMaker()
+        internal void NewListMaker()
         {
             bool validator = false;
             ShoppingData newShoppingData = new ShoppingData();
@@ -117,7 +118,7 @@ namespace GroList
             } while (!validator);
         }
         //Method to add items to the new list.
-        internal static List<ShoppingItem> NewItemMaker()
+        internal List<ShoppingItem> NewItemMaker()
         {
             List<ShoppingItem> items = new List<ShoppingItem>();
             foreach (var cat in Enum.GetNames(typeof(Category)))
@@ -153,7 +154,7 @@ namespace GroList
         //============================================
         //------------ Search Methods ----------------
         //Menu for searching through the lists.
-        internal static void SavedSearch()
+        internal void SavedSearch()
         {
             Console.Clear();
 
@@ -173,7 +174,7 @@ namespace GroList
 
         }
         //Method for searching through the lists.
-        internal static void SearchResults(List<ShoppingData> searchResultsList)
+        internal void SearchResults(List<ShoppingData> searchResultsList)
         {
             bool validator = false;
 
@@ -260,7 +261,7 @@ namespace GroList
 
         //============================================
         //------------ Menu option arrays ------------
-        internal static string[] MainMenuOptions =
+        internal string[] MainMenuOptions =
     {
                 "Make a new list: ",
                 "Search for a saved list: ",
@@ -268,14 +269,14 @@ namespace GroList
                 "To exit the program: "
             };
 
-        internal static string[] NewListMenuOptions =
+        internal string[] NewListMenuOptions =
 {
             "View Categories",
             "Start New List",
             "Exit"
         };
 
-        internal static string[] SearchMenuOptions =
+        internal string[] SearchMenuOptions =
 {
                 "To search for a list: ",
                 "To print out all saved lists to screen: ",
@@ -295,7 +296,7 @@ namespace GroList
             return data;
         }
         //----- Serialize List to JSON file.
-        internal static void SerializeNewList(List<ShoppingData> myShoppingLists, string fileName)
+        internal void SerializeNewList(List<ShoppingData> myShoppingLists, string fileName)
         {
 
             var serializer = new JsonSerializer();
@@ -307,7 +308,7 @@ namespace GroList
         }
 
         //----- Reading a text file to the console.
-        internal static void AboutGroList()
+        internal void AboutGroList()
         {
             bool validator = false;
             do
@@ -339,7 +340,7 @@ namespace GroList
         }
 
         //----- Prints out the prompt message for the main menu.
-        internal static string PromptMessage(string message)
+        internal string PromptMessage(string message)
         {
             Console.Write(message);
             String userInput = Console.ReadLine();
@@ -349,7 +350,7 @@ namespace GroList
         }
 
         //----- Greeting that always stays on top of the screen.
-        internal static void DisplayGreeting()
+        internal void DisplayGreeting()
         {
             Console.WriteLine("Hello, and welcome to GroList!");
             Console.WriteLine("_____________________________________________________________");
@@ -357,7 +358,7 @@ namespace GroList
         }
 
         //----- Prints menu options to the screen.
-        public static void DisplayMenu(string[] array)
+        public void DisplayMenu(string[] array)
         {
             Console.Clear();
             DisplayGreeting();
@@ -371,7 +372,7 @@ namespace GroList
         }
 
         //----- Standard prompt method to cycle through the menu options.
-        internal static int Prompt(string[] array)
+        internal int Prompt(string[] array)
         {
             bool validate = false;
             int parsedUserInput = 0;
@@ -381,7 +382,7 @@ namespace GroList
 
             do
             {
-                input = Program.PromptMessage($"Please select an option (1-{array.Length}): ");
+                input = PromptMessage($"Please select an option (1-{array.Length}): ");
                 bool canParse = int.TryParse(input, out parsedUserInput);
                 validate = canParse && parsedUserInput > 0 && parsedUserInput <= array.Length;
 
@@ -397,7 +398,7 @@ namespace GroList
         }
 
         //----- Prints the categories in the Categoy Enum to the screen.
-        internal static void GetCategories()
+        internal void GetCategories()
         {
                 Console.Clear();
                 DisplayGreeting();
