@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
+using System.Net.Mail;
 
 
 namespace GroList
@@ -178,12 +179,15 @@ namespace GroList
         {
             bool validator = false;
 
+
             do
             {
                 //Prompt for user to search.
                 Console.Write("Search by the name of the list or the date (mm/dd/yyyy) the list was created: ");
                 string searchQuery = Console.ReadLine();
                 searchQuery = searchQuery.ToUpper();
+
+                List<ShoppingData> EmailedList = new List<ShoppingData>();
 
 
                 bool notFound = false;
@@ -198,33 +202,23 @@ namespace GroList
                         Console.WriteLine(i.Date);
                         ShoppingItem.PrintItem(i.Items);
                         Console.WriteLine("_____________________________________________________________");
-                        //--------------------------------------------------------------------------------
-                        //Prompt to ask user if they would like to send list to printer or email.
-                        //------------------------------------------------------------------------------
-                        //Console.WriteLine("Would you like to email this list to yourself or print it out?");
-                        //Console.Write("Type P to print, type E to email, or type both to do both: ");
-                        //string printResponse = Console.ReadLine();
-                        //if (printResponse == "E")
-                        //{
-                        //    //sends list to email of user.
-                        //    Email();
-                        //}
-                        //else if (printResponse == "P")
-                        //{
-                        //    //sends list to local printer.
-                        //    Print();
-                        //}
-                        //else if (printResponse == "EP" || printResponse == "PE")
-                        //{
-                        //    //sends list to both email and local printer.
-                        //    Print();
-                        //    Email();
-                        //}
-                        //else { Console.WriteLine("Please enter a valid response."); }
+
+                        EmailedList.Add(i);
 
                         Console.WriteLine("Awesome! We found it!");
-                        notFound = false;
-                        break;
+                        validator = true;
+                        Console.Write("Would you like to email this list to yourself? Y/N: ");
+                        var exitKey = Console.ReadKey();
+                        switch (exitKey.Key)
+                        {
+                            case ConsoleKey.Y:
+                                Console.WriteLine(" ");
+                                Email(EmailedList);
+                                break;
+                            case ConsoleKey.N:
+                                Console.WriteLine(" ");
+                                break;
+                        }
 
                     }
                     else
@@ -233,27 +227,29 @@ namespace GroList
                     }
 
                 }
-                if (notFound == true)
+                if (notFound == true && validator == false)
                 {
                     Console.WriteLine("Sorry! GroList couldn't find that list.");
-
                 }
-
-
-                Console.Write("Would you like to search for another list? Y/N: ");
-                var enterKey = Console.ReadKey();
-                switch (enterKey.Key)
+                else
                 {
-                    case ConsoleKey.Y:
-                        validator = false;
-                        Console.WriteLine("");
-                        break;
-                    case ConsoleKey.N:
-                        validator = true;
-                        Console.WriteLine("");
-
-                        break;
+                    break;
                 }
+
+
+                //Console.Write("Would you like to search for another list? Y/N: ");
+                //var enterKey = Console.ReadKey();
+                //switch (enterKey.Key)
+                //{
+                //    case ConsoleKey.Y:
+                //        validator = false;
+                //        Console.WriteLine("");
+                //        break;
+                //    case ConsoleKey.N:
+                //        validator = true;
+                //        Console.WriteLine("");
+                //        break;
+                //}
 
             } while (!validator);
         }
@@ -413,10 +409,59 @@ namespace GroList
                 Console.ReadKey();
         }
 
-        //internal static void Email()
-        //{
-        //    Console.WriteLine("Your list has been emailed.");
-        //}
+        internal static void Email(List<ShoppingData> emailList)
+        {
+            string emailBody = string.Empty;
+
+            //converting list items into strings so that they are readable by humans
+            //Also adding each part of the list to the emailBody string so that it can be sent.
+            foreach (var thing in emailList)
+            {
+                thing.Name.ToString();
+                emailBody = $"Name: {thing.Name}" + Environment.NewLine;
+                thing.Date.ToString();
+                emailBody += $"Date: {thing.Date}" + Environment.NewLine;
+                emailBody += $"Items: " + Environment.NewLine;
+
+                foreach (var i in thing.Items)
+                {
+                    if (i.ItemName != null)
+                    {
+                        i.Category.ToString();
+                        emailBody += $"{i.Category} ";
+                        i.ItemName.ToString();
+                        emailBody += $"{i.ItemName} " + Environment.NewLine;
+
+                    }
+                }
+            }
+
+            Console.WriteLine(emailBody);
+
+            Console.Write("Please enter your email address: ");
+            string userEmail = Console.ReadLine();
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            mail.From = new MailAddress("ejpink4@gmail.com");
+            mail.To.Add($"{userEmail}");
+            mail.Subject = "New GroList";
+            mail.Body = emailBody;
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("GroListApp19", "GroList@2019");
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
+
+            Console.WriteLine("Your list has been emailed. Please hit ENTER to go back to the search menu.");
+            key = Console.ReadKey();
+            switch (key.Key)
+            {
+                case ConsoleKey.Enter:
+                    Console.WriteLine("");
+                    break;
+            }
+        }
 
         //internal static void Print()
         //{
